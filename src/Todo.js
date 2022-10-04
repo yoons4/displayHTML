@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Todo({todo}) {
+export default function Todo({todo, toggleTodo}) {
   return (
     <div>
       <label>
