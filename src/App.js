@@ -52,7 +52,7 @@ function App() {
 export default App;
 */
 
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import CurrencyRow from './CurrencyRow'
 
@@ -89,9 +89,9 @@ function App(){
         }, [])
 
     useEffect(() => {
-        if (fromCurrency != null && toCurrency){
+        if (fromCurrency != null && toCurrency != null){
             fetch(`${BASE_URL}?base=${fromCurrency}&symbols=${toCurrency}`)
-            .then(rex => res.json())
+            .then(res => res.json())
             .then(data => setExchangeRate(data.rates[toCurrency]))
         }
         
@@ -110,10 +110,12 @@ function App(){
         <>
         <h1>Convert</h1>
         <CurrencyRow currencyOptions={currencyOptions} selectedCurrency={fromCurrency} 
-        onChangeCurrency = {e => setFromCurrency(e.target.value)} amount = {fromAmount}/>
+        onChangeCurrency = {e => setFromCurrency(e.target.value)} onChangeAmount = {handleFromAmountChange}
+        amount = {fromAmount}/>
         <div className = "equals">=</div>
         <CurrencyRow currencyOptions={currencyOptions} selectedCurrency = {toCurrency} 
-        onChangeCurrency = {e => setFromCurrency(e.target.value)} amount = {toAmount}/>
+        onChangeCurrency = {e => setToCurrency(e.target.value)} onChangeAmount = {handleToAmountChange}
+        amount = {toAmount}/>
         </>
     );
 }
