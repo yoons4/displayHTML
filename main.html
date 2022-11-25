@@ -3,11 +3,103 @@
     <head>
         <meta charset = "UTF-8">
         <title>Mr. Mario</title>
+        <script>
+                const email = document.getElementById("mail");
+
+email.addEventListener("input", (event) => {
+    if(email.validity.typeMismatch) {
+        email.setCustomValidity("I am expecting an e-mail address!");
+        email.reportValidity();
+    } else {
+        email.setCustomValidity("Sangha");
+    }
+})
+        </script>
+        <style>
+            form {
+                font: 1em sans-serif;
+                max-width: 320px;
+            }
+
+            p > label{
+                display: block;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="number"],
+            textarea,
+            fieldset{
+                width: 100%;
+                border: 1px solid #333;
+                box-sizing: border-box;
+            }
+
+            input:invalid{
+                box-shadow: 0 0 5px 1px red;
+            }
+
+            input:focus:invalid{
+                box-shadow: none;
+            }
+        </style>
     </head>
     <body>
-        <h1>Super Mario</h1>
-        <h2>Super Luigi</h2>
-        <h3>Super Peach</h3>
-        <p>sdfsdf<strong>sdf<i>Sangha</i>dsf</strong>sdf</p>
+        <form>
+            <label for = "mail">
+                I would like you to provide me with an e-mail address:
+            </label>
+            <input type = "email" id = "mail" name = "mail">
+            <button>Submit</button>
+        </form>
+        <!--<form>
+            <p>
+                <fieldset>
+                    <legend>Do you have a driver's license?<span aria-label = "required">*</span></legend>
+
+                    <input type = "radio" required name = "driver" id = "r1" value = "yes">
+                    <label for = "r1">Yes</label>
+
+                    <input type = "radio" required name = "driver" id = "r2" value = "no">
+                    <label for = "r2">No</label>
+                </fieldset>
+            </p>
+            <p>
+                <label for = "t1">What is your favorite fruit?<span aria-label = "required">*</span></label>
+
+                <input type = "text" id= "t1" name = "fruit" list = "l1" 
+                required pattern = "[Bb]anana|[Cc]herry|[Aa]pple|[Ss]trawberry|[Ll]emon|[Oo]range">
+
+                <datalist id = "l1">
+                    <option>Banana</option>
+                    <option>Cherry</option>
+                    <option>Apple</option>
+                    <option>Strawberry</option>
+                    <option>Lemon</option>
+                    <option>Orange</option>
+                </datalist>
+            </p>
+            <p>
+                <label for = "t2">What is your e-mail address?</label>
+                <input type = "email" id = "t2" name = "email">
+            </p>
+            <p>
+                <label for = "t3">Leave a short message</label>
+                <textarea id = "t3" name = "msg" maxlength = "140" rows = "5"></textarea>
+            </p>
+            <p>
+                <button>Submit</button>
+            </p>
+        </form>-->
+        
+        <!--
+            <form>
+            <label for = "choose">Would you prefer a banana or a cherry?</label>
+            <input type = "text" id = "choose" name = "i-like" required pattern = "[Bb]anana|[Cc]herry" />
+            <button>Submit</button>
+        </form>
+        -->
+        
     </body>
+
 </html>
