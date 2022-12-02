@@ -3,55 +3,113 @@
     <head>
         <meta charset = "UTF-8">
         <title>Mr. Mario</title>
-        <script>
-                const email = document.getElementById("mail");
-
-email.addEventListener("input", (event) => {
-    if(email.validity.typeMismatch) {
-        email.setCustomValidity("I am expecting an e-mail address!");
-        email.reportValidity();
-    } else {
-        email.setCustomValidity("Sangha");
-    }
-})
-        </script>
         <style>
-            form {
+            body{
                 font: 1em sans-serif;
-                max-width: 320px;
+                width: 200px;
+                padding: 0;
+                margin: 0 auto;
             }
 
-            p > label{
+            p * {
                 display: block;
             }
 
-            input[type="text"],
-            input[type="email"],
-            input[type="number"],
-            textarea,
-            fieldset{
+            input[type="email"]{
+                appearance: none;
                 width: 100%;
                 border: 1px solid #333;
+                margin: 0;
+                font-family: inherit;
+                font-size: 90%;
                 box-sizing: border-box;
             }
 
             input:invalid{
-                box-shadow: 0 0 5px 1px red;
+                border-color: #900;
+                background-color: #fdd;
             }
 
             input:focus:invalid{
-                box-shadow: none;
+                outline: none;
+            }
+
+            .error{
+                width: 100%;
+                padding: 0;
+
+                font-size: 80%;
+                color:white;
+                background-color: #900;
+                border-radius: 0 0 5px 5px;
+
+                box-sizing: border-box;
+            }
+
+            .error.active{
+                padding: 0.3em;
             }
         </style>
     </head>
     <body>
         <form>
-            <label for = "mail">
-                I would like you to provide me with an e-mail address:
-            </label>
-            <input type = "email" id = "mail" name = "mail">
+            <p>
+                <label for = "mail">
+                    <span>Please enter the email address: </span>
+                    <input type = "email" id="mail" name="mail" required minlength = "8" />
+                    <span class = "error" aria-live = "polite"></span>
+                </label>
+            </p>
             <button>Submit</button>
         </form>
+        <script>
+            const form = document.querySelector("form");
+            const email = document.getElementById("mail");
+            const emailError = document.querySelector("#mail + span.error");
+
+            email.addEventListener("input", (event) => {
+                if(email.validity.valid){
+                    emailError.textContent = "";
+                    emailError.className = "error";
+                } else {
+                    showError();
+                }
+            });
+
+            form.addEventListener("submit", (event) => {
+                if(!email.validity.valid){
+                    showError();
+                    event.preventDefault();
+                }
+            });
+
+            function showError(){
+                if(email.validity.valueMissing){
+                    emailError.textContent = "You need to enter an e-mail address.";
+                } else if(email.validity.typeMismatch){
+                    emailError.textContent = "Entered value needs to be an e-mail address.";
+                } else if(email.validity.tooShort){
+                    emailError.textContent = `E-mail should be at least ${email.minLength} character; you entered ${email.value.length}.`;
+                }
+                emailError.className = "error active";
+            }
+            /*
+            const email = document.getElementById("mail");
+            //console.log(email);
+           // console.log(1);
+            email.addEventListener("input", (event) => {
+                if (email.validity.typeMismatch) {
+                    //console.log(2);
+                    email.setCustomValidity("I am expecting an e-mail address!");
+                    //console.log(3);
+                    email.reportValidity();
+                    //console.log(4);
+            } else {
+                    email.setCustomValidity("");
+                }
+            });
+            */
+        </script>
         <!--<form>
             <p>
                 <fieldset>
